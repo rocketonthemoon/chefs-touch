@@ -1,16 +1,26 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer, useEffect } from "react";
+import ItemReducer from "../Reducers/ItemReducer";
 import result from "../result.json";
 
 const ItemContext = createContext();
 
-export const ItemProvider = ({children}) => {
-    const [results,setResult] = useState(result)
+export const ItemProvider = ({ children }) => {
+  const initialState = {
+    results: result,
+  };
 
-    return(
-        <ItemContext.Provider value={{results}}>
-            {children}
-        </ItemContext.Provider>
-    )
-}
+  const [state, dispatch] = useReducer(ItemReducer, initialState);
+
+  return (
+    <ItemContext.Provider
+      value={{
+        results: state.results,
+        dispatch,
+      }}
+    >
+      {children}
+    </ItemContext.Provider>
+  );
+};
 
 export default ItemContext;
