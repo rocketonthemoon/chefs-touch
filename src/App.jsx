@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import Footer from "./components/Footer";
+import ItemPage from "./pages/ItemPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Routes>
               <Route exact path="/" element={<Home />}></Route>
               <Route exact path="/about" element={<About />}></Route>
+              <Route exact path="/Item/:id" element={<ItemPage />}></Route>
               <Route path="/notfound" element={<NotFound />}></Route>
               <Route path="/*" element={<NotFound />}></Route>
             </Routes>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Item({ item }) {
   return (
     <div className="sm:inline-block m-2 bg-white rounded-xl shadow-xl overflow-hidden">
@@ -13,7 +15,12 @@ function Item({ item }) {
           <div className="uppercase tracking-wide m-2 text-sm w-48 text-black-500 font-semibold">
             {item.title}
           </div>
-         <button className="btn w-64 bg-primary text-white border-none">Try It</button>
+
+          <Link to={`/item/${item.id}`}>
+            <button className="btn w-64 bg-primary text-white border-none">
+              try it
+            </button>
+          </Link>
         </div>
       </div>
     </div>

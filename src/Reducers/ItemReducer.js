@@ -5,6 +5,11 @@ const ItemReducer = (state, action) => {
         ...state,
         results: action.payload,
       };
+    case "GET_ITEM":
+      return {
+        ...state,
+        current: action.payload,
+      };
     default:
       return state;
   }

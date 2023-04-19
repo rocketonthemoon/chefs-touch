@@ -7,6 +7,7 @@ const ItemContext = createContext();
 export const ItemProvider = ({ children }) => {
   const initialState = {
     results: result,
+    current: [],
   };
 
   const [state, dispatch] = useReducer(ItemReducer, initialState);
@@ -15,6 +16,7 @@ export const ItemProvider = ({ children }) => {
     <ItemContext.Provider
       value={{
         results: state.results,
+        current: state.current,
         dispatch,
       }}
     >
