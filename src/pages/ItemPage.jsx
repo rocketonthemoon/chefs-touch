@@ -31,8 +31,6 @@ function ItemPage() {
 
   if (current.length == 0) {
     return <Progress />;
-  } else {
-    console.log(current);
   }
 
   return (
