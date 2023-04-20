@@ -1,32 +1,25 @@
 import { useParams } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import ItemContext from "../context/ItemContext";
-import axios from "axios";
 import Progress from "../components/Progress";
 import { Markup } from "interweave";
+import { getCurrentItem } from "../Actions";
 
 function ItemPage() {
   const { id } = useParams();
 
   const { dispatch, current } = useContext(ItemContext);
 
-  const item = axios.create({
-    baseURL: `https://api.spoonacular.com/recipes/${id}/`,
-  });
-
-  const getCurrentItem = async () => {
-    const params = new URLSearchParams({
-      apiKey: "1898a2b71edd4ec689e79bab52e28b37",
-    });
-    const response = await item.get(`information?${params}`);
+  const handleSingleItem = async () => {
+    const currentItem = await getCurrentItem(id);
     dispatch({
       type: "GET_ITEM",
-      payload: response.data,
+      payload: currentItem.data,
     });
   };
 
   useEffect(() => {
-    getCurrentItem();
+    handleSingleItem();
   }, []);
 
   if (current.length == 0) {

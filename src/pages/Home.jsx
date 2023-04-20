@@ -1,25 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ItemContext from "../context/ItemContext";
 import ItemList from "../components/ItemList";
-import axios from "axios";
+import { getItems } from "../Actions";
 
 function Home() {
+  const [text, setText] = useState("");
   const { dispatch, results } = useContext(ItemContext);
 
-  const item = axios.create({
-    baseURL: `https://api.spoonacular.com/recipes/`,
-  });
-
-  const getItems = async (text) => {
-    const params = new URLSearchParams({
-      query: text,
-      number: 100,
-      apiKey: "1898a2b71edd4ec689e79bab52e28b37",
-    });
-    const response = await item.get(`complexSearch?${params}`);
+  const handleItemList = async () => {
+    const items = await getItems(text);
     dispatch({
       type: "GET_ITEMS",
-      payload: response.data,
+      payload: items.data,
     });
   };
 
@@ -30,7 +22,8 @@ function Home() {
         placeholder="Search for your favorite recipe..."
         className="input input-bordered input-primary w-full max-w-xs sm:max-w-lg"
         onKeyUp={(e) => {
-          getItems(e.target.value);
+          setText(e.target.value);
+          handleItemList();
         }}
       />{" "}
       <ItemList results={results.results} />
